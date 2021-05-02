@@ -168,7 +168,7 @@ class _NewTransactionState extends State<NewTransaction> {
                     height: 60,
                     width: 148,
                     child: RaisedButton(
-                      onPressed: () => widget.delete(widget.ps.id),
+                      onPressed: () {},
                       color: Colors.green,
                       shape: RoundedRectangleBorder(
                           borderRadius: new BorderRadius.circular(15.0)),
@@ -186,7 +186,7 @@ class _NewTransactionState extends State<NewTransaction> {
                     height: 60,
                     width: 190,
                     child: RaisedButton(
-                      onPressed: () => widget.delete(widget.ps.id),
+                      onPressed: () => {},
                       color: Colors.green,
                       shape: RoundedRectangleBorder(
                           borderRadius: new BorderRadius.circular(15.0)),
@@ -207,8 +207,7 @@ class _NewTransactionState extends State<NewTransaction> {
                 width: 320,
                 child: RaisedButton(
                   onPressed: () {
-                    widget.delete(widget.ps.id);
-                    Navigator.pop(context);
+                    _showAlertDialog(context);
                   },
                   color: Colors.green,
                   shape: RoundedRectangleBorder(
@@ -225,5 +224,38 @@ class _NewTransactionState extends State<NewTransaction> {
         ),
       ),
     );
+  }
+
+  void _showAlertDialog(BuildContext context) {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            content: Text(
+              'Вы хотите отменить покупку билета?',
+              style: TextStyle(fontSize: 19, fontWeight: FontWeight.bold),
+            ),
+            actions: [
+              FlatButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: Text(
+                    'Нет',
+                    style: TextStyle(fontSize: 20, color: Colors.green),
+                  )),
+              FlatButton(
+                  onPressed: () {
+                    widget.delete(widget.ps.id);
+                    Navigator.pop(context);
+                    Navigator.pop(context);
+                  },
+                  child: Text(
+                    'Да',
+                    style: TextStyle(fontSize: 20, color: Colors.green),
+                  )),
+            ],
+          );
+        });
   }
 }
